@@ -4,7 +4,7 @@ import android.icu.number.NumberFormatter
 import android.icu.number.Precision
 import androidx.annotation.DrawableRes
 import com.zoroxnekko.cryptotracker.crypto.domain.Coin
-import com.zoroxnekko.cryptotracker.util.getDrawableIdForCoin
+import com.zoroxnekko.cryptotracker.core.presentation.util.getDrawableIdForCoin
 import java.util.Locale
 
 data class CoinUi(
