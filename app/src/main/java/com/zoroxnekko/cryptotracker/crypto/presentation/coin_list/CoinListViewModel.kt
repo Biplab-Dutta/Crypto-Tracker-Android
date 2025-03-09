@@ -27,15 +27,15 @@ class CoinListViewModel(
     private fun loadCoins() {
         viewModelScope.launch {
             _state.update {
-                it.copy(
-                    isLoading = true
-                )
+                it.copy(isLoading = true)
             }
             coinDataSource.getCoins()
                 .onSuccess { coins ->
                     _state.update {
                         it.copy(
-                            isLoading = false, coins = coins.map { it.toCoinUi() })
+                            isLoading = false,
+                            coins = coins.map { it.toCoinUi() }
+                        )
                     }
                 }
                 .onError { error ->
