@@ -1,4 +1,4 @@
-package com.zoroxnekko.cryptotracker.util
+package com.zoroxnekko.cryptotracker.core.presentation.util
 
 
 import com.zoroxnekko.cryptotracker.R
