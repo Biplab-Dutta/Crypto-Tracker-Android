@@ -1,4 +1,4 @@
-package com.zoroxnekko.cryptotracker.util
+package com.zoroxnekko.cryptotracker.core.domain.util
 
 typealias DomainError = Error
 typealias EmptyResult<E> = Result<Unit, E>
