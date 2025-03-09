@@ -17,8 +17,11 @@ class CoinListViewModel(
     private val coinDataSource: CoinDataSource
 ) : ViewModel() {
     private val _state = MutableStateFlow(CoinListState())
-    val state = _state.onStart { loadCoins() }.stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5000), CoinListState()
+    val state = _state.onStart { loadCoins() }
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            CoinListState()
         )
 
     private fun loadCoins() {
@@ -28,12 +31,14 @@ class CoinListViewModel(
                     isLoading = true
                 )
             }
-            coinDataSource.getCoins().onSuccess { coins ->
+            coinDataSource.getCoins()
+                .onSuccess { coins ->
                     _state.update {
                         it.copy(
                             isLoading = false, coins = coins.map { it.toCoinUi() })
                     }
-                }.onError { error ->
+                }
+                .onError { error ->
                     _state.update {
                         it.copy(isLoading = false)
                     }
@@ -43,9 +48,7 @@ class CoinListViewModel(
 
     fun onAction(action: CoinListAction) {
         when (action) {
-            is CoinListAction.OnCoinTap -> {
-
-            }
+            is CoinListAction.OnCoinTap -> {}
         }
     }
 }
