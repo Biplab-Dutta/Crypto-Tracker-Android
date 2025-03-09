@@ -1,6 +1,7 @@
 package com.zoroxnekko.cryptotracker.util
 
 typealias DomainError = Error
+typealias EmptyResult<E> = Result<Unit, E>
 
 sealed interface Result<out D, out E: Error> {
     data class Success<out D>(val data: D): Result<D, Nothing>
@@ -36,5 +37,3 @@ inline fun <T, E: Error> Result<T, E>.onError(action: (E) -> Unit): Result<T, E>
         is Result.Success -> this
     }
 }
-
-typealias EmptyResult<E> = Result<Unit, E>
