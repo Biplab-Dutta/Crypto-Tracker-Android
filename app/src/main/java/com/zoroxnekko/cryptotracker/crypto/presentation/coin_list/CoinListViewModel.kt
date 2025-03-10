@@ -6,9 +6,11 @@ import com.zoroxnekko.cryptotracker.core.domain.util.onError
 import com.zoroxnekko.cryptotracker.core.domain.util.onSuccess
 import com.zoroxnekko.cryptotracker.crypto.domain.CoinDataSource
 import com.zoroxnekko.cryptotracker.crypto.presentation.models.toCoinUi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -23,6 +25,9 @@ class CoinListViewModel(
             SharingStarted.WhileSubscribed(5000),
             CoinListState()
         )
+
+    private val _events = Channel<CoinListEvent>()
+    val events = _events.receiveAsFlow()
 
     private fun loadCoins() {
         viewModelScope.launch {
@@ -39,9 +44,8 @@ class CoinListViewModel(
                     }
                 }
                 .onError { error ->
-                    _state.update {
-                        it.copy(isLoading = false)
-                    }
+                    _state.update { it.copy(isLoading = false) }
+                    _events.send(CoinListEvent.Error(error))
                 }
         }
     }
