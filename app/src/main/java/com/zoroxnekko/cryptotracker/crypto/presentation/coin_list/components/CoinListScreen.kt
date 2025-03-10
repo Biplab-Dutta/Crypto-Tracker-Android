@@ -11,12 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.zoroxnekko.cryptotracker.crypto.presentation.coin_list.CoinListAction
 import com.zoroxnekko.cryptotracker.crypto.presentation.coin_list.CoinListState
 import com.zoroxnekko.cryptotracker.ui.theme.CryptoTrackerTheme
 
 @Composable
 fun CoinListScreen(
     state: CoinListState,
+    onAction: (CoinListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (state.isLoading) {
@@ -34,7 +36,7 @@ fun CoinListScreen(
             items(state.coins) { coinUi ->
                 CoinListItem(
                     coinUi = coinUi,
-                    onClick = {},
+                    onClick = { onAction(CoinListAction.OnCoinTap(coinUi)) },
                 )
             }
         }
@@ -51,7 +53,8 @@ private fun CoinListScreenPreview(modifier: Modifier = Modifier) {
                 coins = (1..10).map {
                     previewCoinUi.copy(id = it.toString())
                 }
-            )
+            ),
+            onAction = {}
         )
     }
 }
