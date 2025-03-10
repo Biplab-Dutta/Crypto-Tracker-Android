@@ -26,8 +26,8 @@ class CoinListViewModel(
             CoinListState()
         )
 
-    private val _events = Channel<CoinListEvent>()
-    val events = _events.receiveAsFlow()
+    private val _effects = Channel<CoinListEvent>()
+    val effects = _effects.receiveAsFlow()
 
     private fun loadCoins() {
         viewModelScope.launch {
@@ -45,7 +45,7 @@ class CoinListViewModel(
                 }
                 .onError { error ->
                     _state.update { it.copy(isLoading = false) }
-                    _events.send(CoinListEvent.Error(error))
+                    _effects.send(CoinListEvent.Error(error))
                 }
         }
     }

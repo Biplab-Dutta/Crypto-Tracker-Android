@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.zoroxnekko.cryptotracker.core.presentation.util.ObserveAsEvents
+import com.zoroxnekko.cryptotracker.core.presentation.util.EffectsObserver
 import com.zoroxnekko.cryptotracker.core.presentation.util.toString
 import com.zoroxnekko.cryptotracker.crypto.presentation.coin_list.CoinListEvent
 import com.zoroxnekko.cryptotracker.crypto.presentation.coin_list.CoinListViewModel
@@ -30,7 +30,8 @@ class MainActivity : ComponentActivity() {
                     val viewModel = koinViewModel<CoinListViewModel>()
                     val state by viewModel.state.collectAsStateWithLifecycle()
                     val context = LocalContext.current
-                    ObserveAsEvents(events = viewModel.events) { event ->
+
+                    EffectsObserver(events = viewModel.effects) { event ->
                         when (event) {
                             is CoinListEvent.Error -> {
                                 Toast.makeText(
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
+
                     CoinListScreen(
                         state = state,
                         modifier = Modifier.padding(innerPadding),
