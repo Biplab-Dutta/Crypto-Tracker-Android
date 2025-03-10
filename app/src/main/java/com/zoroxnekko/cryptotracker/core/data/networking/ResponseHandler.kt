@@ -6,20 +6,22 @@ import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlin.coroutines.coroutineContext
 
 suspend inline fun <reified T> safeCall(
-    execute: () -> HttpResponse
+    crossinline execute: suspend () -> HttpResponse
 ): Result<T, NetworkError> {
     val response = try {
-        execute()
-    } catch (e: UnresolvedAddressException) {
+        withContext(Dispatchers.IO) { execute() }
+    } catch (_: UnresolvedAddressException) {
         return Result.Error(NetworkError.NO_INTERNET)
-    } catch (e: SerializationException) {
+    } catch (_: SerializationException) {
         return Result.Error(NetworkError.SERIALIZATION)
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         coroutineContext.ensureActive()
         return Result.Error(NetworkError.UNKNOWN)
     }
@@ -33,7 +35,7 @@ suspend inline fun <reified T> responseToResult(
         in 200..299 -> {
             try {
                 Result.Success(response.body<T>())
-            } catch (e: NoTransformationFoundException) {
+            } catch (_: NoTransformationFoundException) {
                 Result.Error(NetworkError.SERIALIZATION)
             }
         }
