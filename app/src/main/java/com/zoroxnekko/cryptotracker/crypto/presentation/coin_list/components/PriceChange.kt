@@ -48,9 +48,9 @@ fun PriceChange(
     ) {
         Icon(
             imageVector = if (change.value > 0) {
-                Icons.Default.KeyboardArrowDown
-            } else {
                 Icons.Default.KeyboardArrowUp
+            } else {
+                Icons.Default.KeyboardArrowDown
             },
             contentDescription = null,
             modifier = modifier.size(20.dp),
