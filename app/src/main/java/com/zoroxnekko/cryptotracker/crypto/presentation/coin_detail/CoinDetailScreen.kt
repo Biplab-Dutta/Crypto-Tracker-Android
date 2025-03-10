@@ -58,6 +58,10 @@ fun CoinDetailScreen(
         }
     } else if (state.selectedCoin != null) {
         val coin = state.selectedCoin
+        val absoluteChangeFormatted =
+            (coin.priceUsd.value * (coin.changePercent24Hr.value / 100)).toDisplayableNumber()
+        val isPositive = coin.changePercent24Hr.value > 0.0
+
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -99,9 +103,6 @@ fun CoinDetailScreen(
                     formattedText = "$ ${coin.priceUsd.formatted}",
                     icon = ImageVector.vectorResource(R.drawable.dollar),
                 )
-                val absoluteChangeFormatted =
-                    (coin.priceUsd.value * (coin.changePercent24Hr.value / 100)).toDisplayableNumber()
-                val isPositive = coin.changePercent24Hr.value > 0.0
                 if (isPositive) {
                     if (isSystemInDarkTheme()) Color.Green else greenBackground
                 } else {
