@@ -22,7 +22,7 @@ class CoinListViewModel(
     val state = _state.onStart { loadCoins() }
         .stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
+            SharingStarted.WhileSubscribed(5000L),
             CoinListState()
         )
 
