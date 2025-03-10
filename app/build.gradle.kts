@@ -30,6 +30,9 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v2/\"")
+            // DON'T PASS SINGINGCONFIG FOR RELEASE BUILD LIKE I DID HERE. I AM TOO LAZY TO IMPLEMENT
+            // IT IN A CORRECT WAY FOR A DEMO APP
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
