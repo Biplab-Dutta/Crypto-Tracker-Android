@@ -43,7 +43,6 @@ class MainActivity : ComponentActivity() {
                     }
                     CoinListScreen(
                         state = state,
-
                         modifier = Modifier.padding(innerPadding),
                     )
                 }
