@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Crypto Tracker</string>
+    <string name="error_request_timeout">The request timed out.</string>
+    <string name="error_too_many_requests">Oops, it seems your quota is exceeded.</string>
+    <string name="error_no_internet">There\'s no internet connection.</string>
+    <string name="error_server">We\'ve encountered some server issues. Please try again in a moment.</string>
+    <string name="error_serialization">Unexpected Issue Encountered.</string>
+    <string name="error_unknown">Please try again later.</string>
 </resources>
