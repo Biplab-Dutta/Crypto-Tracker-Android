@@ -6,4 +6,7 @@
     <string name="error_server">We\'ve encountered some server issues. Please try again in a moment.</string>
     <string name="error_serialization">Unexpected Issue Encountered.</string>
     <string name="error_unknown">Please try again later.</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="price">Price</string>
+    <string name="change_last_24h">Change last 24h</string>
 </resources>
