@@ -71,12 +71,11 @@ class CoinListViewModel(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onAction(action: CoinListAction) {
         when (action) {
             is CoinListAction.OnCoinTap -> {
-                _state.update {
-                    it.copy(selectedCoin = action.coinUi)
-                }
+                selectCoin(action.coinUi)
             }
         }
     }
