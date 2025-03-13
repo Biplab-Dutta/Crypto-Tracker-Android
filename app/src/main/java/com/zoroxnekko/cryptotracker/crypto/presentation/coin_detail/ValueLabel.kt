@@ -20,6 +20,6 @@ data class ValueLabel(
         val formatter = NumberFormatter.withLocale(Locale.getDefault())
             .precision(Precision.minMaxFraction(0, fractionDigits))
 
-        return "${formatter.format(value)}$unit"
+        return "$unit${formatter.format(value)}"
     }
 }
