@@ -153,19 +153,6 @@ fun LineChart(
         val viewportBottomY = viewportTopY + viewportHeightPx
         val viewportLeftX = 2f * horizontalPaddingPx + maxYLabelWidth
 
-        val viewport = Rect(
-            left = viewportLeftX,
-            top = viewportTopY,
-            right = viewportRightX,
-            bottom = viewportBottomY
-        )
-
-        drawRect(
-            color = Color.Green.copy(alpha = 0.3f),
-            topLeft = viewport.topLeft,
-            size = viewport.size
-        )
-
         xLabelWidth = maxXLabelWidth + xAxisLabelSpacingPx
 
         xLabelTextLayoutResults.forEachIndexed { index, result ->
